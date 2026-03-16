@@ -1,11 +1,7 @@
-import Presenter from './presenter/main-presenter.js';
+import Presenter from './presenter/main-presenter';
+import MainModel from './model/main-model';
 
-const filtersContainer = document.querySelector('.trip-controls__filters');
-const eventsContainer = document.querySelector('.trip-events');
-
-const presenter = new Presenter({
-  filtersContainer: filtersContainer,
-  eventsContainer: eventsContainer
-});
+const mainModel = new MainModel();
+const presenter = new Presenter({mainModel});
 
 presenter.init();

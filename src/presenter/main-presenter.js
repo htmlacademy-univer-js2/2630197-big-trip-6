@@ -1,42 +1,34 @@
-import FiltersView from '../view/filters-view.js';
-import SortView from '../view/sort-view.js';
-import FormCreateView from '../view/form-create-view.js';
-import FormEditView from '../view/form-edit-view.js';
-import RoutePointView from '../view/route-point-view.js';
-import {render} from '../render.js';
-
-const POINT_COUNT = 3;
+import Filters from '../view/filters-view.js';
+import FormCreation from '../view/form-creation-view.js';
+import FormEditing from '../view/form-editing-view.js';
+import RoutePointList from '../view/route-point-list-view.js';
+import RoutePoint from '../view/route-point-view.js';
+import Sorting from '../view/sorting-view.js';
+import { render } from '../render.js';
 
 export default class Presenter {
-  constructor({filtersContainer, eventsContainer}) {
-    this.filtersContainer = filtersContainer;
-    this.eventsContainer = eventsContainer;
+  RoutePointListComponent = new RoutePointList();
+
+  constructor({mainModel}) {
+    this.mainModel = mainModel;
+    this.tripEvents = document.querySelector('.trip-events');
+    this.tripControlFilters = document.querySelector('.trip-controls__filters');
   }
 
   init() {
-    this.filtersContainer.innerHTML = '';
+    this.points = this.mainModel.getPoints();
+    this.offers = this.mainModel.getOffers();
+    this.destinations = this.mainModel.getDestinations();
 
-    const filtersView = new FiltersView();
-    render(filtersView, this.filtersContainer);
+    render(new Filters(), this.tripControlFilters);
+    render(new Sorting(), this.tripEvents);
+    render(this.RoutePointListComponent, this.tripEvents);
+    render(new FormEditing({point: this.points[0], destinations: this.destinations}), this.RoutePointListComponent.getElement());
 
-    this.eventsContainer.innerHTML = '';
+    this.points.forEach((point) => {
+      render(new RoutePoint({point, destinations: this.destinations}), this.RoutePointListComponent.getElement());
+    });
 
-    const sortView = new SortView();
-    render(sortView, this.eventsContainer);
-
-    const eventsList = document.createElement('ul');
-    eventsList.className = 'trip-events__list';
-    this.eventsContainer.appendChild(eventsList);
-
-    const formEditView = new FormEditView();
-    render(formEditView, eventsList);
-
-    const formCreateView = new FormCreateView();
-    render(formCreateView, eventsList);
-
-    for (let i = 0; i < POINT_COUNT; i++) {
-      const pointView = new RoutePointView();
-      render(pointView, eventsList);
-    }
+    render(new FormCreation(), this.RoutePointListComponent.getElement());
   }
 }
