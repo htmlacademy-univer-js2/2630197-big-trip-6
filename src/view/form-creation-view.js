@@ -1,4 +1,4 @@
-import { createElement } from '../render.js';
+import AbstractView from '../framework/view/abstract-view.js';
 
 function createFormCreationTemplate() {
   return `<form class="event event--edit" action="#" method="post">
@@ -163,20 +163,8 @@ function createFormCreationTemplate() {
           </form>`;
 }
 
-export default class FormCreation {
-  getTemplate() {
+export default class FormCreation extends AbstractView {
+  get template() {
     return createFormCreationTemplate();
-  }
-
-  getElement() {
-    if (!this.element) {
-      this.element = createElement(this.getTemplate());
-    }
-
-    return this.element;
-  }
-
-  removeElement() {
-    this.element = null;
   }
 }
