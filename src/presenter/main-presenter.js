@@ -4,40 +4,54 @@ import RoutePointList from '../view/route-point-list-view.js';
 import RoutePoint from '../view/route-point-view.js';
 import Sorting from '../view/sorting-view.js';
 import { render, replace } from '../framework/render.js';
+import { isEscapeKey } from '../utils.js';
+import EmptyListView from '../view/empty-list-view.js';
+import { generateFilter } from '../mock/filters-mock.js';
 
 export default class Presenter {
   #RoutePointListComponent = new RoutePointList();
 
-  #mainModel = null;
+  #pointsModel = null;
+  #offersModel = null;
+  #destinationsModel = null;
   #tripEvents = null;
   #tripControlFilters = null;
   #points = null;
   #destinations = null;
   #offers = null;
 
-  constructor({mainModel}) {
-    this.#mainModel = mainModel;
+  constructor({pointsModel, offersModel, destinationsModel}) {
+    this.#pointsModel = pointsModel;
+    this.#offersModel = offersModel;
+    this.#destinationsModel = destinationsModel;
     this.#tripEvents = document.querySelector('.trip-events');
     this.#tripControlFilters = document.querySelector('.trip-controls__filters');
   }
 
   init() {
-    this.#points = this.#mainModel.points;
-    this.#offers = this.#mainModel.offers;
-    this.#destinations = this.#mainModel.destinations;
+    this.#points = this.#pointsModel.points;
+    this.#offers = this.#offersModel.offers;
+    this.#destinations = this.#destinationsModel.destinations;
 
-    render(new Filters(), this.#tripControlFilters);
-    render(new Sorting(), this.#tripEvents);
-    render(this.#RoutePointListComponent, this.#tripEvents);
+    const filters = generateFilter(this.#points);
 
-    this.#points.forEach((point) => {
-      this.#renderPoint(point);
-    });
+    if (this.#points.length > 0) {
+      render(new Filters({filters}), this.#tripControlFilters);
+      render(new Sorting(), this.#tripEvents);
+      render(this.#RoutePointListComponent, this.#tripEvents);
+
+      this.#points.forEach((point) => {
+        this.#renderPoint(point);
+      });
+    } else {
+      render(new EmptyListView(), this.#tripEvents);
+    }
+
   }
 
   #renderPoint(point) {
     const escKeyHandler = (event) => {
-      if (event.key === 'Escape') {
+      if (isEscapeKey(event)) {
         event.preventDefault();
         replaceEditFormToPoint();
         document.removeEventListener('keydown', escKeyHandler);
