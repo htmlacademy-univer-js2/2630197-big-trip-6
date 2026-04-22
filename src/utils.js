@@ -55,4 +55,8 @@ function isPointPast(point) {
   return dayjs().isAfter(dayjs(point.dateTo));
 }
 
-export { convertDate, getDestinationBydI, getDuration, getOffersByType, getRandomPrice, isEscapeKey, isPointPresent, isPointFuture, isPointPast };
+function updatePointData(points, updatedPointData) {
+  return points.map((point) => point.id === updatedPointData.id ? updatedPointData : point);
+}
+
+export { convertDate, getDestinationBydI, getDuration, getOffersByType, getRandomPrice, isEscapeKey, isPointPresent, isPointFuture, isPointPast, updatePointData };

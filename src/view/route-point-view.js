@@ -66,7 +66,7 @@ export default class RoutePoint extends AbstractView {
   #point = null;
   #destinations = null;
 
-  constructor({point, destinations, onRollButtonClick}) {
+  constructor({point, destinations, onRollButtonClick, onFavoriteClick}) {
     super();
 
     this.#point = point;
@@ -75,6 +75,10 @@ export default class RoutePoint extends AbstractView {
     this.element.querySelector('.event__rollup-btn').addEventListener('click', (event) => {
       event.preventDefault();
       onRollButtonClick();
+    });
+    this.element.querySelector('.event__favorite-btn').addEventListener('click', (event) => {
+      event.preventDefault();
+      onFavoriteClick();
     });
   }
 
