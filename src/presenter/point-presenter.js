@@ -18,6 +18,7 @@ export class PointPresenter {
   #escKeyHandler = (event) => {
     if (isEscapeKey(event)) {
       event.preventDefault();
+      this.#editFormItem.reset(this.#point);
       this.#replaceEditFormToPoint();
       document.removeEventListener('keydown', this.#escKeyHandler);
     }
@@ -29,6 +30,11 @@ export class PointPresenter {
     this.#pointsListComponent = pointsListComponent;
     this.#handleDataChange = changeDataOnFavorite;
     this.#handleModeChange = changeMode;
+  }
+
+  destroy(){
+    remove(this.#pointItem);
+    remove(this.#editFormItem);
   }
 
   init(point) {
@@ -45,13 +51,12 @@ export class PointPresenter {
       }
     });
 
-    this.#editFormItem = new FormEditing({point: this.#point, destinations: this.#destinations,
-      onRollButtonClick: () => {
-        this.#replaceEditFormToPoint();
-      },
-      onSubmitClick: () => {
-        this.#replaceEditFormToPoint();
-      }
+    this.#editFormItem = new FormEditing({
+      point: this.#point,
+      offers: this.#offers,
+      destinations: this.#destinations,
+      onFormSubmit: this.#editFormSubmitHandler,
+      onFormReset: this.#editFormResetHandler
     });
 
     if (prevPointComponent === null || prevEditFormComponent === null) {
@@ -73,6 +78,7 @@ export class PointPresenter {
 
   resetView() {
     if(this.#mode !== Mode.DEFAULT) {
+      this.#editFormItem.reset(this.#point);
       this.#replaceEditFormToPoint();
     }
   }
@@ -93,4 +99,16 @@ export class PointPresenter {
   #addToFaivorite() {
     this.#handleDataChange({...this.#point, isFavorite: !this.#point.isFavorite});
   }
+
+  #editFormSubmitHandler = (point) => {
+    this.#handleDataChange(point);
+    this.#replaceEditFormToPoint();
+    document.removeEventListener('keydown', this.#escKeyHandler);
+  };
+
+  #editFormResetHandler = () => {
+    this.#editFormItem.reset(this.#point);
+    this.#replaceEditFormToPoint();
+    document.removeEventListener('keydown', this.#escKeyHandler);
+  };
 }

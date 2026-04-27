@@ -59,4 +59,22 @@ function updatePointData(points, updatedPointData) {
   return points.map((point) => point.id === updatedPointData.id ? updatedPointData : point);
 }
 
-export { convertDate, getDestinationBydI, getDuration, getOffersByType, getRandomPrice, isEscapeKey, isPointPresent, isPointFuture, isPointPast, updatePointData };
+function sortByDay(pointA, pointB){
+  return new Date(pointA.dateFrom) - new Date(pointB.dateFrom);
+}
+
+function sortByPrice(pointA, pointB){
+  return pointB.basePrice - pointA.basePrice;
+}
+
+function sortByDuration(pointA, pointB){
+  return dayjs(pointB.dateTo).diff(dayjs(pointB.dateFrom)) - dayjs(pointA.dateTo).diff(dayjs(pointA.dateFrom));
+}
+
+function formatDate(date, dateFormat) {
+  return date ? dayjs(date).format(dateFormat) : '';
+}
+
+export { convertDate, getDestinationBydI, getDuration, getOffersByType, getRandomPrice,
+  isEscapeKey, isPointPresent, isPointFuture, isPointPast, updatePointData,
+  sortByDay, sortByPrice, sortByDuration, formatDate };

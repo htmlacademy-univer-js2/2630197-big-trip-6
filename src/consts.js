@@ -1,4 +1,5 @@
 import { isPointFuture, isPointPast, isPointPresent } from './utils';
+
 const Formats = {
   TIME: 'HH:mm',
   DAY: 'MMM D',
@@ -25,4 +26,7 @@ const Mode = {
   EDITING: 'EDITING'
 };
 
-export { Formats, filter, Mode };
+const SortTypes = ['day', 'event', 'time', 'price', 'offers'];
+const EVENT_TYPES = ['taxi', 'bus', 'train', 'ship', 'drive', 'flight', 'check-in', 'sightseeing', 'restaurant'];
+
+export { Formats, filter, Mode, SortTypes, EVENT_TYPES };

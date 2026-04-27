@@ -3,70 +3,72 @@ import { getRandomPrice } from '../utils';
 const minPrice = 240;
 const maxPrice = 4100;
 
-const pointsMock = [
+export const pointsMock = [
   {
-    'id': 'bbf2cc7a-f3e8-4609-bd4e-79d58e512287',
+    'id': '27dd5201-44e4-4787-aa22-6ac3a7ca8e81',
     'basePrice': getRandomPrice(minPrice, maxPrice),
-    'dateFrom': '2025-02-13T22:06:12.821Z',
-    'dateTo': '2025-02-14T15:12:12.821Z',
-    'destination': 'a981d2e5-0324-475a-b814-0779833e6c23',
-    'isFavorite': true,
+    'dateFrom': '2025-03-10T15:00:17.516Z',
+    'dateTo': '2025-03-11T17:44:17.516Z',
+    'destination': '28025513-9fa9-47db-8b93-78e0f32d84f1',
+    'isFavorite': false,
     'offers': [
-      '761e2ddb-b5cc-4590-8104-82f0643ffc06',
-      'e4feb9d2-05e6-4dbe-8bec-aafde193afc0',
-      '060dc342-12eb-49d9-bc4b-2ace53288cc9'
+      'b7730c4f-9b4e-4c5f-ba93-3e186dca42e6',
+      '9bb07f8b-e82b-4738-8b5a-5c6bae30ad90',
+      '89cd5a4f-571c-410d-a4f2-1adb589dcdce',
+      '1fbc49c6-2e99-488b-95bd-87739f32c533',
+      '836e9bd6-d532-4867-b99a-cd339a57dc05'
     ],
     'type': 'check-in'
   },
   {
-    'id': 'c5f30a4c-0ef7-41ba-87f9-495e213a18a4',
+    'id': 'c8a64888-5919-471f-ad04-582058d937e8',
     'basePrice': getRandomPrice(minPrice, maxPrice),
-    'dateFrom': '2025-04-10T03:03:12.821Z',
-    'dateTo': '2025-04-12T02:16:12.821Z',
-    'destination': 'e05056ac-f5e8-413e-812e-186059ffa8b5',
+    'dateFrom': '2025-04-13T02:00:17.516Z',
+    'dateTo': '2025-04-14T10:29:17.516Z',
+    'destination': '13b3f63e-494e-4736-93d6-eea350805f32',
     'isFavorite': false,
-    'offers': [
-      '201e539d-7173-4fad-82e0-788c26dfb7a9',
-      '3efdd2b3-e091-459a-b4bd-c0f94005d1e1',
-      '0a6f3595-450a-4d55-b917-90a1ef1af044',
-      '0e7993d4-2111-41f1-b5d4-452ec166cfa5'
-    ],
-    'type': 'taxi'
-  },
-  {
-    'id': '8677587e-2602-47b1-a200-d28e9cd34bce',
-    'basePrice': getRandomPrice(minPrice, maxPrice),
-    'dateFrom': '2025-04-07T10:38:12.821Z',
-    'dateTo': '2025-04-09T10:42:12.821Z',
-    'destination': 'b447fce3-6400-459e-b4ee-3a7ea0b2d620',
-    'isFavorite': true,
     'offers': [],
     'type': 'sightseeing'
   },
   {
-    'id': '85a2f0c4-248d-4063-ba49-011a1879c988',
+    'id': '4a2f4727-4518-4f0d-ba31-be9b113c2c1b',
     'basePrice': getRandomPrice(minPrice, maxPrice),
-    'dateFrom': '2025-07-15T16:31:12.821Z',
-    'dateTo': '2025-07-16T20:57:12.821Z',
-    'destination': 'c404e12f-adc3-4d53-bc96-f77c333a17f9',
+    'dateFrom': '2025-05-14T23:12:17.516Z',
+    'dateTo': '2025-05-15T10:49:17.516Z',
+    'destination': 'b029dbd0-e23d-40be-9aa2-97828f51b5bb',
     'isFavorite': true,
-    'offers': [],
-    'type': 'taxi'
+    'offers': [
+      '48f5964e-267d-4b41-804e-ffc531ebd023'
+    ],
+    'type': 'drive'
   },
   {
-    'id': 'd1ef1eb1-5983-40c8-a1f3-6c039909c28c',
+    'id': '1159737c-4403-4ee7-bd1b-e40f38eb0005',
     'basePrice': getRandomPrice(minPrice, maxPrice),
-    'dateFrom': '2025-07-30T11:46:12.821Z',
-    'dateTo': '2025-07-01T23:21:12.821Z',
-    'destination': 'adc0f62d-9592-467b-92d3-1882deda2ca5',
+    'dateFrom': '2025-06-15T17:25:17.516Z',
+    'dateTo': '2025-06-17T10:45:17.516Z',
+    'destination': '5ad946fb-2d23-46e9-af7e-d272c642aecf',
     'isFavorite': false,
     'offers': [
-      '70e1751f-0a4a-4cfe-bbd1-c51289cc713d',
-      '99a58311-3190-4222-94e3-b2c61e8fbe67',
-      '060dc342-12eb-49d9-bc4b-2ace53288cc9'
+      '7c242e33-9390-4f28-84ed-bf352809944a',
+      '8fcead10-05f2-440a-9fb8-fd1b6389dc98',
+      'bf082dcc-2af6-470d-a049-26a746d244dd',
+      '9289150c-b8c2-44a0-bc44-94f5cd8e7894',
+      'bef15b9f-e8a2-409c-85ac-92bdaf461759'
     ],
-    'type': 'check-in'
+    'type': 'ship'
+  },
+  {
+    'id': '127142a6-cfda-4b08-98df-e700684edada',
+    'basePrice': getRandomPrice(minPrice, maxPrice),
+    'dateFrom': '2025-07-18T03:18:17.516Z',
+    'dateTo': '2025-07-18T16:32:17.516Z',
+    'destination': 'b029dbd0-e23d-40be-9aa2-97828f51b5bb',
+    'isFavorite': false,
+    'offers': [
+      '4fb723a2-cf55-421a-b77b-b3317e2463ca',
+      '429b80d4-0961-4511-a8c8-689252e6efe0'
+    ],
+    'type': 'restaurant'
   }
 ];
-
-export { pointsMock };
