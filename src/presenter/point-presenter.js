@@ -11,8 +11,8 @@ export default class PointPresenter {
   #pointItem = null;
   #editFormItem = null;
   #pointsListComponent = null;
-  #handleDataChange = null;
-  #handleModeChange = null;
+  #onDataChange = null;
+  #onModeChange = null;
   #mode = Mode.DEFAULT;
   #typeOffers = null;
 
@@ -28,8 +28,8 @@ export default class PointPresenter {
     this.#destinations = destinations;
     this.#offers = offers;
     this.#pointsListComponent = pointsListComponent;
-    this.#handleDataChange = changeDataOnFavorite;
-    this.#handleModeChange = changeMode;
+    this.#onDataChange = changeDataOnFavorite;
+    this.#onModeChange = changeMode;
     this.#typeOffers = typeOffers;
   }
 
@@ -57,7 +57,7 @@ export default class PointPresenter {
       onFormSubmit: this.#onEditFormSubmit.bind(this),
       onFormReset: this.#replaceEditFormToPoint.bind(this),
       typeOffers: this.#typeOffers,
-      onDeleteClick: this.#handleDeleteButtonClick
+      onDeleteClick: this.#onDeleteButtonClick
     });
 
     if (prevPointComponent === null || prevEditFormComponent === null) {
@@ -85,7 +85,7 @@ export default class PointPresenter {
 
   #replacePointToEditForm() {
     replace(this.#editFormItem, this.#pointItem);
-    this.#handleModeChange();
+    this.#onModeChange();
     this.#mode = Mode.EDITING;
   }
 
@@ -96,11 +96,11 @@ export default class PointPresenter {
   }
 
   #addToFaivorite = (point) => {
-    this.#handleDataChange(UserAction.UPDATE_POINT, UpdateType.PATCH, {...point, isFavorite: !point.isFavorite});
+    this.#onDataChange(UserAction.UPDATE_POINT, UpdateType.PATCH, {...point, isFavorite: !point.isFavorite});
   };
 
   #onEditFormSubmit = async (point) => {
-    await this.#handleDataChange(UserAction.UPDATE_POINT, UpdateType.MINOR, point);
+    await this.#onDataChange(UserAction.UPDATE_POINT, UpdateType.MINOR, point);
     if (point.isSaving) {
       this.#replaceEditFormToPoint();
       document.removeEventListener('keydown', this.#onEscKey);
@@ -112,8 +112,8 @@ export default class PointPresenter {
     document.addEventListener('keydown', this.#onEscKey);
   };
 
-  #handleDeleteButtonClick = (point) => {
-    this.#handleDataChange(UserAction.DELETE_POINT, UpdateType.MINOR, point);
+  #onDeleteButtonClick = (point) => {
+    this.#onDataChange(UserAction.DELETE_POINT, UpdateType.MINOR, point);
   };
 
   setAborting() {

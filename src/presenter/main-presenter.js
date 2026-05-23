@@ -34,8 +34,8 @@ export default class Presenter {
     this.#eventsContainer = eventsContainer;
     this.#pointListComponent = pointListComponent;
     this.#filterModel = filterModel;
-    this.#pointsModel.addObserver(this.#handleModelChange);
-    this.#filterModel.addObserver(this.#handleModelChange);
+    this.#pointsModel.addObserver(this.#onModelChange);
+    this.#filterModel.addObserver(this.#onModelChange);
 
     this.#pointCreationPresenter = new PointCreationPresenter({
       filterModel: this.#filterModel,
@@ -43,12 +43,12 @@ export default class Presenter {
       point: NEW_POINT,
       pointsModel: this.#pointsModel,
       addButton: this.#addButton,
-      handleDataChange: this.#handleUserAction.bind(this),
-      handleModeChange: this.#handleModeChange.bind(this)
+      onDataChange: this.#onUserAction.bind(this),
+      onModeChange: this.#onModeChange.bind(this)
     });
   }
 
-  #handleModelChange = (updateType, update) => {
+  #onModelChange = (updateType, update) => {
     switch (updateType) {
       case UpdateType.PATCH:
         this.#pointPresenters.get(update.id).init(update);
@@ -74,7 +74,7 @@ export default class Presenter {
     this.#renderPointList(isFilterTypeChanged);
   }
 
-  #handleModeChange = () => {
+  #onModeChange = () => {
     this.#pointPresenters.forEach((presenter) => presenter.resetView());
     this.#pointCreationPresenter.destroy();
   };
@@ -88,8 +88,8 @@ export default class Presenter {
       destinations: this.destinations,
       offers: this.offers,
       pointsListComponent: this.#pointListComponent,
-      changeDataOnFavorite: this.#handleUserAction.bind(this),
-      changeMode: this.#handleModeChange.bind(this),
+      changeDataOnFavorite: this.#onUserAction.bind(this),
+      changeMode: this.#onModeChange.bind(this),
       typeOffers: getOffersByType(this.offers, point.type)
     });
 
@@ -97,7 +97,7 @@ export default class Presenter {
     this.#pointPresenters.set(point.id, pointPresenter);
   }
 
-  #handleUserAction = async (actionType, updateType, update) => {
+  #onUserAction = async (actionType, updateType, update) => {
     const presenter = this.#pointPresenters.get(update.id);
     try {
       this.#uiBlocker.block();

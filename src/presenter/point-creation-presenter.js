@@ -10,19 +10,19 @@ export default class PointCreationPresenter {
   #addButton = null;
   #pointsModel = null;
   #point = null;
-  #handleDataChange = null;
-  #handleModeChange = null;
+  #onDataChange = null;
+  #onModeChange = null;
 
-  constructor({ filterModel, pointListComponent, point, pointsModel, addButton, handleDataChange, handleModeChange }) {
+  constructor({ filterModel, pointListComponent, point, pointsModel, addButton, onDataChange, onModeChange }) {
     this.#filterModel = filterModel;
     this.#pointListComponent = pointListComponent;
     this.#point = point;
     this.#pointsModel = pointsModel;
     this.#addButton = addButton;
-    this.#handleDataChange = handleDataChange;
-    this.#handleModeChange = handleModeChange;
+    this.#onDataChange = onDataChange;
+    this.#onModeChange = onModeChange;
 
-    this.#addButton.addEventListener('click', this.#handleAddButtonClick);
+    this.#addButton.addEventListener('click', this.#onAddButtonClick);
   }
 
   init() {
@@ -31,7 +31,7 @@ export default class PointCreationPresenter {
       typeOffers: getOffersByType(this.#pointsModel.offers, this.#point.type),
       offers: this.#pointsModel.offers,
       destinations: this.#pointsModel.destinations,
-      onFormSubmit: this.#handleFormSubmit.bind(this),
+      onFormSubmit: this.#onFormSubmit.bind(this),
       onDeleteClick: this.destroy
     });
 
@@ -39,16 +39,16 @@ export default class PointCreationPresenter {
     render(this.#pointEditComponent, this.#pointListComponent.element, RenderPosition.AFTERBEGIN);
   }
 
-  #handleAddButtonClick = () => {
+  #onAddButtonClick = () => {
     this.#filterModel.setFilter(UpdateType.MAJOR, FilterType.EVERYTHING);
-    this.#handleModeChange();
+    this.#onModeChange();
     document.addEventListener('keydown', this.#onEscKeydown);
     this.init();
     this.#addButton.disabled = true;
   };
 
-  #handleFormSubmit = (update) => {
-    this.#handleDataChange(
+  #onFormSubmit = (update) => {
+    this.#onDataChange(
       UserAction.ADD_POINT,
       UpdateType.MAJOR,
       update

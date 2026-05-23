@@ -9,7 +9,7 @@ export default class TripInfoPresenter {
   constructor({ container, pointsModel }) {
     this.#container = container;
     this.#pointsModel = pointsModel;
-    this.#pointsModel.addObserver(this.#handleModelChange);
+    this.#pointsModel.addObserver(this.#onModelChange);
   }
 
   init() {
@@ -18,7 +18,7 @@ export default class TripInfoPresenter {
     render(this.#tripInfoComponent, this.#container, RenderPosition.AFTERBEGIN);
   }
 
-  #handleModelChange = () => {
+  #onModelChange = () => {
     this.init();
   };
 }
